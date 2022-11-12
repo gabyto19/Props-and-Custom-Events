@@ -1,17 +1,51 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <section>
+    <user-data @add-contact="addContact"> </user-data>
+    <br />
+
+    <ul class="ul-class">
+      <active-user v-for="user in users"
+        :key="user.id"
+        :id="user.id"
+        :username="user.username"
+        :age = "user.age"
+        ></active-user>
+    </ul>
+  </section>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import ActiveUser from "./components/ActiveUser.vue";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  components: { ActiveUser },
+  data() {
+    return {
+      users: [
+        {
+          id: 'manuel',
+          username: 'Manuel Lorenz',
+          age: '0123 45678 90',
+        },
+        {
+          id: 'julie',
+          username: 'Julie Jones',
+          age: '0987 654421 21',
+        },
+      ],
+    };
+  },
+  methods: {
+    addContact(name, age) {
+      const newuserContact = {
+        id: new Date().toISOString(),
+        username: name,
+        age: age,
+
+      };
+      this.users.push(newuserContact);
+    }
+  },
+};
 </script>
 
 <style>
@@ -22,5 +56,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.ul-class
+{
+  padding: 0%;
 }
 </style>
